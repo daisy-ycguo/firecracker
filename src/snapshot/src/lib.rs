@@ -159,13 +159,13 @@ impl Snapshot {
 
         // Since the reader updates the checksum as bytes ar being read from it, the order of these 2 statements is
         // important, we first get the checksum computed on the read bytes then read the stored checksum.
-        let computed_checksum = crc_reader.checksum();
-        let format_vm = Self::format_version_map();
-        let stored_checksum: u64 =
-            Versionize::deserialize(&mut crc_reader, &format_vm, 0).map_err(Error::Versionize)?;
-        if computed_checksum != stored_checksum {
-            return Err(Error::Crc64(computed_checksum));
-        }
+        // let computed_checksum = crc_reader.checksum();
+        // let format_vm = Self::format_version_map();
+        // let stored_checksum: u64 =
+        //     Versionize::deserialize(&mut crc_reader, &format_vm, 0).map_err(Error::Versionize)?;
+        // if computed_checksum != stored_checksum {
+        //     return Err(Error::Crc64(computed_checksum));
+        // }
 
         let mut snapshot_slice: &[u8] = &mut snapshot.as_mut_slice();
         let object: O = Snapshot::unchecked_load(&mut snapshot_slice, version_map)?;

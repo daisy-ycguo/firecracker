@@ -519,15 +519,15 @@ pub fn build_microvm_from_snapshot(
         .map_err(RestoreMicrovmState)?;
 
     // Restore devices states.
-    let mmio_ctor_args = MMIODevManagerConstructorArgs {
-        mem: guest_memory,
-        vm: vmm.vm.fd(),
-        event_manager,
-    };
-    vmm.mmio_device_manager =
-        MMIODeviceManager::restore(mmio_ctor_args, &microvm_state.device_states)
-            .map_err(MicrovmStateError::RestoreDevices)
-            .map_err(RestoreMicrovmState)?;
+    // let mmio_ctor_args = MMIODevManagerConstructorArgs {
+    //     mem: guest_memory,
+    //     vm: vmm.vm.fd(),
+    //     event_manager,
+    // };
+    // vmm.mmio_device_manager =
+    //     MMIODeviceManager::restore(mmio_ctor_args, &microvm_state.device_states)
+    //         .map_err(MicrovmStateError::RestoreDevices)
+    //         .map_err(RestoreMicrovmState)?;
 
     // Move vcpus to their own threads and start their state machine in the 'Paused' state.
     vmm.start_vcpus(
